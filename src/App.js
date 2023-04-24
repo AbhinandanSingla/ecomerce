@@ -3,12 +3,39 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch, faUser, faShoppingCart, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination, Scrollbar, A11y, Autoplay} from 'swiper';
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {Rating} from 'react-simple-star-rating'
 
 
 function App() {
     const [loginBtn, setloginBtn] = useState(false)
+    const [products, setProduct] = useState([])
+    const [request, setRequest] = useState("initial")
+    const [price, setPrice] = useState(2000)
+    const urls = {
+        "initial": "http://127.0.0.1:8080/getProducts",
+        "price": "http://127.0.0.1:8080/getProductsPrice",
+    }
+    const fetchProduct = async () => {
+        const productsRes = await fetch(urls[request]);
+        const product = await productsRes.json();
+        return product;
+    }
+    const fetchProductPrice = async () => {
+        const productsRes = await fetch(`http://127.0.0.1:8080/getProductPriceComp?value=${price}`);
+        const product = await productsRes.json();
+        return product;
+    }
 
+
+    const changePrice = (event) => {
+        fetchProductPrice().then(r => setProduct(r));
+        setPrice(event.target.value);
+    };
+
+    useEffect(() => {
+        fetchProduct().then(r => setProduct(r));
+    }, [request])
     return (<>
             <div className="navbar">
                 <div className="max_width">
@@ -75,6 +102,63 @@ function App() {
                     </SwiperSlide>
                     </Swiper>
 
+                    <div className="filtersContainer">
+                        <ul>
+                            <li className={request == "initial" ? "filtersNav activeFilter" : "filtersNav"}
+                                onClick={() => setRequest("initial")}>All HeadPhones
+                            </li>
+                            <li className={request == "price" ? "filtersNav activeFilter" : "filtersNav"}
+                                onClick={() => setRequest("price")}><span>Price</span>
+
+                                <div className="priceFilterContainer">
+                                    <input
+                                        type='range'
+                                        onChange={changePrice}
+                                        min={50}
+                                        max={3000}
+                                        step={100}
+                                        value={price}
+                                        className='priceSlider'>
+                                    </input>
+                                    <span>Rs{price}</span>
+                                </div>
+                            </li>
+                            <li className="filtersNav">Review</li>
+                            <li className="filtersNav">Color</li>
+                            <li className="filtersNav">Material</li>
+                            <li className="filtersNav">Offer</li>
+                            <li className="filtersNav">All Filter</li>
+                        </ul>
+
+                    </div>
+                    <div className="h_heading">
+                        Headphones For You!!
+                    </div>
+                    <div className="headphoneGallery">
+                        {products.map((value, index) => <div className="card">
+                            <figure>
+                                <img
+                                    src={value.img}
+                                    alt=""/>
+                            </figure>
+                            <div className="heading">
+                                {value.name}
+                            </div>
+                            <div className="price">
+                                Rs{value.price}
+                            </div>
+                            <div className="startRating">
+                                <Rating
+                                    initialValue={value.rating}
+                                    readonly={true}
+                                />
+                            </div>
+                            <div className="btn">
+                                Add to Cart
+                            </div>
+                        </div>)
+                        }
+                    </div>
                 </div>
             </div>
         </>

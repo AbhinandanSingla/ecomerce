@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: center;
     padding: 0 2rem;
-    background: rgba(128, 128, 128, 0.58);
+    background: rgba(128, 128, 128, 0.2);
     border-radius: 20rem;
 }
 
@@ -89,4 +89,105 @@
 .loginBox .btn {
     width: 100%;
 
+}
+
+.filtersContainer {
+    margin: 2rem 0;
+}
+
+.filtersNav {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(128, 128, 128, 0.2);
+    font-family: var(--Poppins);
+    margin-left: 1rem;
+    border-radius: 10rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.filtersNav span {
+    padding: 0 1rem;
+}
+
+.h_heading {
+
+    font-size: 2rem;
+    font-family: var(--OpenSans);
+    font-weight: 800;
+    margin-left: 2rem;
+    margin-top: 4rem;
+}
+
+.headphoneGallery {
+    margin: 2rem auto;
+    width: 80%;
+}
+
+.headphoneGallery .card {
+    width: 30rem;
+    padding: 2rem 0;
+}
+
+.headphoneGallery .card figure img {
+    background: rgba(128, 128, 128, 0.2);
+    width: 100%;
+    border-radius: 0.5rem;
+
+}
+
+.headphoneGallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10rem;
+}
+
+.headphoneGallery .card .heading {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--OpenSans);
+    padding: 2px 0;
+
+}
+
+.headphoneGallery .card .price {
+    display: inline-block;
+    float: right;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--OpenSans);
+}
+
+.headphoneGallery .card .startRating svg {
+    width: 20px;
+    height: 20px;
+}
+
+.headphoneGallery .card .startRating {
+    padding: 2px 0;
+
+}
+
+.headphoneGallery .card .btn {
+    margin-top: 1rem;
+    display: inline-block;
+    border-radius: 10rem;
+    border: 1px solid black;
+    padding: 1rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: var(--Poppins);
+    letter-spacing: 1px;
+}
+
+.activeFilter {
+    background: rgba(33, 245, 33, 0.31);
+}
+
+.priceFilterContainer {
+    font-family: var(--OpenSans);
+    font-size: 1.2rem;
 }
